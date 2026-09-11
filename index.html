@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teas N Trees — Guntur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:  #F7F1E2;
+    --sand:   #E7D9B4;
+    --moss:   #4B5E3B;
+    --moss-dark: #384627;
+    --bark:   #4A3628;
+    --clay:   #C57C58;
+    --ink:    #2A2419;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    color:var(--bark);
+    font-weight:500;
+    line-height:1.08;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  .wrap{
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:absolute;
+    top:26px;
+    left:0;
+    right:0;
+    z-index:3;
+    padding:28px 0 0;
+  }
+  .nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .wordmark{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:22px;
+    color:var(--cream);
+    font-weight:600;
+  }
+  .nav-links{
+    display:flex;
+    gap:28px;
+    font-size:14px;
+  }
+  .nav-links a{
+    text-decoration:none;
+    color:var(--cream);
+    transition:color 0.3s ease;
+  }
+  .nav-links a:hover{ color:var(--clay); }
+
+  .scroll-cue{
+    position:absolute;
+    right:32px;
+    bottom:26px;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#B8AF98;
+    font-size:12px;
+    animation: pulse 2s infinite;
+  }
+  .scroll-cue .line{
+    width:1px;
+    height:34px;
+    background:rgba(247,241,226,0.4);
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* ---------- cinematic hero ---------- */
+  .hero-frame{
+    position:relative;
+    background:var(--ink);
+  }
+  .letterbox{
+    height:26px;
+    background:var(--ink);
+  }
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+  }
+  .hero-bg svg{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+  }
+  .hero-scrim{
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(180deg, rgba(20,17,10,0.2) 0%, rgba(20,17,10,0.25) 40%, rgba(20,17,10,0.9) 100%),
+      linear-gradient(90deg, rgba(20,17,10,0.6) 0%, rgba(20,17,10,0.1) 50%, rgba(20,17,10,0.4) 100%);
+    z-index:1;
+  }
+  .hero-content{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    max-width:900px;
+    animation: fadeInUp 1.2s ease-out;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity:0;
+      transform:translateY(40px);
+    }
+    to {
+      opacity:1;
+      transform:translateY(0);
+    }
+  }
+
+  .hero-content .eyebrow{
+    color:var(--clay);
+    font-size:14px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin-bottom:20px;
+    display:block;
+  }
+  .hero h1{
+    color:var(--cream);
+    font-size:clamp(48px, 10vw, 120px);
+    letter-spacing:-0.02em;
+    margin-bottom:24px;
+    text-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    line-height:1.1;
+  }
+  .hero .lede{
+    max-width:600px;
+    margin:0 auto 32px;
+    font-size:20px;
+    color:#E8DFD0;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    line-height:1.6;
+  }
+  
+  .stat-strip{
+    display:flex;
+    gap:48px;
+    margin-top:48px;
+    flex-wrap:wrap;
+    justify-content:center;
+    padding-top:48px;
+    border-top:1px solid rgba(247,241,226,0.2);
+  }
+  .stat {
+    text-align:center;
+  }
+  .stat b{
+    display:block;
+    font-family:'Fraunces', serif;
+    font-size:32px;
+    color:var(--sand);
+    margin-bottom:6px;
+  }
+  .stat span{
+    font-size:12px;
+    color:#B8AF98;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+
+  .cta-row{
+    margin-top:48px;
+    display:flex;
+    gap:16px;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+  .btn{
+    display:inline-block;
+    padding:16px 40px;
+    border-radius:2px;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    border:2px solid transparent;
+    cursor:pointer;
+    transition:all 0.4s ease;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+  }
+  .btn-solid{
+    background:var(--clay);
+    color:white;
+    border-color:var(--clay);
+  }
+  .btn-solid:hover{
+    transform:translateY(-3px);
+    box-shadow: 0 20px 40px rgba(197, 124, 88, 0.3);
+  }
+  .btn-line{
+    color:var(--cream);
+    border-color:var(--cream);
+    background:transparent;
+  }
+  .btn-line:hover{
+    background:rgba(247,241,226,0.1);
+    border-color:var(--clay);
+    color:var(--clay);
+  }
+
+  /* ---------- info sections ---------- */
+  .section{
+    padding:100px 0;
+  }
+  .section-title{
+    font-size:48px;
+    margin-bottom:60px;
+    text-align:center;
+  }
+  .section-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+    gap:40px;
+    margin-bottom:60px;
+  }
+  .info-card{
+    background:rgba(247,241,226,0.05);
+    backdrop-filter:blur(10px);
+    border:1px solid rgba(247,241,226,0.1);
+    padding:40px;
+    border-radius:8px;
+    transition:all 0.4s ease;
+  }
+  .info-card:hover{
+    background:rgba(247,241,226,0.08);
+    border-color:rgba(247,241,226,0.2);
+    transform:translateY(-8px);
+  }
+  .info-card h3{
+    font-size:22px;
+    margin-bottom:16px;
+    color:var(--clay);
+  }
+  .info-card p{
+    font-size:15px;
+    line-height:1.7;
+    color:#9A927A;
+  }
+
+  /* ---------- menu section ---------- */
+  .menu-section{
+    background:linear-gradient(135deg, rgba(56,70,39,0.1) 0%, rgba(74,54,40,0.1) 100%);
+    padding:100px 0;
+  }
+  .menu-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+    gap:30px;
+    margin-top:60px;
+  }
+  .menu-card{
+    background:var(--cream);
+    border-radius:8px;
+    padding:30px;
+    text-align:center;
+    border:1px solid rgba(74,54,40,0.1);
+    transition:all 0.4s ease;
+  }
+  .menu-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 20px 50px rgba(0,0,0,0.1);
+  }
+  .menu-card h4{
+    font-size:18px;
+    color:var(--bark);
+    margin-bottom:12px;
+  }
+  .menu-card p{
+    font-size:14px;
+    color:#8a8067;
+    margin-bottom:14px;
+  }
+  .menu-tag{
+    display:inline-block;
+    background:var(--clay);
+    color:white;
+    padding:4px 12px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:600;
+  }
+
+  /* ---------- footer ---------- */
+  footer{
+    background:var(--ink);
+    color:var(--cream);
+    padding:60px 0;
+    text-align:center;
+  }
+  .footer-content{
+    margin-bottom:30px;
+  }
+  .footer-contact{
+    display:flex;
+    gap:40px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:30px;
+    font-size:15px;
+  }
+  .footer-contact div{
+    text-align:center;
+  }
+  .footer-contact strong{
+    display:block;
+    color:var(--clay);
+    margin-bottom:4px;
+  }
+  .footer-divider{
+    height:1px;
+    background:rgba(247,241,226,0.1);
+    margin:30px 0;
+  }
+  .footer-credit{
+    font-size:12px;
+    color:#8a8067;
+  }
+
+  @media (max-width:760px){
+    .hero{ min-height:100vh; }
+    .hero h1{ font-size:clamp(36px, 8vw, 64px); }
+    .hero .lede{ font-size:16px; }
+    .stat-strip{ gap:24px; }
+    .stat b{ font-size:24px; }
+    .section{ padding:60px 0; }
+    .nav-links{ display:none; }
+    .scroll-cue{ display:none; }
+    .menu-grid{
+      grid-template-columns:1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero-frame">
+  <div class="letterbox"></div>
+
+  <section class="hero">
+    <div class="hero-bg">
+      <svg viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3A4A2C"/>
+            <stop offset="55%" stop-color="#2C3620"/>
+            <stop offset="100%" stop-color="#171408"/>
+          </linearGradient>
+          <radialGradient id="glow" cx="72%" cy="30%" r="55%">
+            <stop offset="0%" stop-color="#C57C58" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#C57C58" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <rect x="0" y="0" width="1400" height="900" fill="url(#sky)"/>
+        <circle cx="1010" cy="270" r="230" fill="url(#glow)"/>
+        <circle cx="1010" cy="270" r="86" fill="#E7D9B4" opacity="0.95"/>
+        <path d="M0 560 C 120 500, 260 520, 380 480 C 520 435, 640 470, 760 430 C 900 385, 1040 430, 1180 400 C 1280 380, 1360 400, 1400 420 L1400 900 L0 900 Z" fill="#212B16" opacity="0.9"/>
+        <path d="M0 640 C 140 590, 300 610, 440 560 C 580 512, 700 560, 860 520 C 1000 484, 1140 520, 1260 500 C 1330 488, 1380 500, 1400 510 L1400 900 L0 900 Z" fill="#161C0E"/>
+        <path d="M-20 900 C 60 760, 40 560, 170 430 C 230 368, 260 300, 250 220" stroke="#0F130A" stroke-width="34" fill="none" stroke-linecap="round"/>
+        <path d="M60 640 C 120 610, 160 580, 190 540" stroke="#0F130A" stroke-width="16" fill="none" stroke-linecap="round"/>
+        <path d="M120 520 C 165 495, 195 470, 215 440" stroke="#0F130A" stroke-width="12" fill="none" stroke-linecap="round"/>
+        <path d="M1420 900 C 1330 800, 1340 700, 1260 640" stroke="#0F130A" stroke-width="26" fill="none" stroke-linecap="round"/>
+        <g fill="#0F130A">
+          <ellipse cx="235" cy="205" rx="30" ry="16" transform="rotate(-25 235 205)"/>
+          <ellipse cx="205" cy="230" rx="26" ry="14" transform="rotate(10 205 230)"/>
+          <ellipse cx="190" cy="450" rx="34" ry="18" transform="rotate(-10 190 450)"/>
+          <ellipse cx="225" cy="470" rx="28" ry="15" transform="rotate(20 225 470)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="hero-scrim"></div>
+
+    <header>
+      <div class="wrap">
+        <div class="nav">
+          <div class="wordmark">Teas N Trees</div>
+          <nav class="nav-links">
+            <a href="#about">About</a>
+            <a href="#menu">Menu</a>
+            <a href="#contact">Contact</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="hero-content wrap">
+      <span class="eyebrow">Lakshmipuram, Guntur</span>
+      <h1>A Garden for Your Coffee</h1>
+      <p class="lede">Tucked into Pandaripuram Road, Teas N Trees pairs Assam teas and slow-built coffee with a leafy, unhurried room — the kind of place people come to sit for an hour and stay for two.</p>
+      <div class="cta-row">
+        <a class="btn btn-solid" href="#menu">Explore</a>
+        <a class="btn btn-line" href="#contact">Contact Us</a>
+      </div>
+      <div class="stat-strip">
+        <div class="stat"><b>4.3</b><span>Rating</span></div>
+        <div class="stat"><b>1,999</b><span>Reviews</span></div>
+        <div class="stat"><b>₹200–400</b><span>Per Person</span></div>
+        <div class="stat"><b>11am–11pm</b><span>Daily</span></div>
+      </div>
+    </div>
+
+    <div class="scroll-cue"><span class="line"></span>Scroll</div>
+  </section>
+
+  <div class="letterbox"></div>
+</div>
+
+<div class="wrap">
+  <section class="section" id="about">
+    <h2 class="section-title">Experience</h2>
+    <div class="section-grid">
+      <div class="info-card">
+        <h3>☕ Premium Beverages</h3>
+        <p>Slow-built coffee and curated Assam teas, crafted with care to bring out the finest flavors in every cup.</p>
+      </div>
+      <div class="info-card">
+        <h3>🌿 Peaceful Ambiance</h3>
+        <p>A leafy, unhurried room designed for those who want to sit back, relax, and lose themselves in good company.</p>
+      </div>
+      <div class="info-card">
+        <h3>🍴 Delicious Bites</h3>
+        <p>Thoughtfully prepared food and snacks that pair perfectly with our signature drinks and complement the experience.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section class="menu-section" id="menu">
+  <div class="wrap">
+    <h2 class="section-title">Featured Menu</h2>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <h4>Crispy Corn</h4>
+        <p>Golden, seasoned corn snack</p>
+        <span class="menu-tag">Popular</span>
+      </div>
+      <div class="menu-card">
+        <h4>Cappuccino Coffee</h4>
+        <p>Smooth, rich espresso with silky foam</p>
+      </div>
+      <div class="menu-card">
+        <h4>Hibiscus Tea</h4>
+        <p>Refreshing and aromatic brew</p>
+        <span class="menu-tag">Popular</span>
+      </div>
+      <div class="menu-card">
+        <h4>Cheese Garlic Bread</h4>
+        <p>Warm, buttery bread with melted cheese</p>
+        <span class="menu-tag">Popular</span>
+      </div>
+      <div class="menu-card">
+        <h4>Sizzling Brownie</h4>
+        <p>Decadent chocolate with vanilla ice cream</p>
+        <span class="menu-tag">Popular</span>
+      </div>
+      <div class="menu-card">
+        <h4>Blue Logon Mojito</h4>
+        <p>Refreshing mocktail with fresh herbs</p>
+        <span class="menu-tag">Popular</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="footer-content">
+      <h2 style="color:var(--cream); margin-bottom:30px; font-size:28px;">Teas N Trees</h2>
+      
+      <div class="footer-contact">
+        <div>
+          <strong>Address</strong>
+          1st Lane, Pandaripuram Rd<br>Lakshmipuram, Guntur<br>Andhra Pradesh 522002
+        </div>
+        <div>
+          <strong>WhatsApp</strong>
+          <a href="https://wa.me/917286833999" style="color:var(--clay); font-weight:600;">+91 72868 33999</a>
+        </div>
+        <div>
+          <strong>Hours</strong>
+          11:00 AM – 11:00 PM<br>Open Daily
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-divider"></div>
+    
+    <div class="footer-credit">
+      <p>© 2024 Teas N Trees. Unofficial concept site built from public listing data.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
